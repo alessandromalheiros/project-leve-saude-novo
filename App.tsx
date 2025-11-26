@@ -16,17 +16,25 @@ const App: React.FC = () => {
     <div className="font-sans text-gray-800 antialiased relative bg-[#f9f9f9]">
       <Header />
 
-      {/* Floating WA Button */}
-      <a 
-        onClick={() => trackAndOpenWhatsApp('Botão Flutuante')}
-        className="cursor-pointer fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center group animate-pulse hover:animate-none"
-        aria-label="Falar no WhatsApp"
-      >
-        <WhatsAppIcon className="w-8 h-8 text-white" />
-        <span className="absolute right-full mr-3 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          Tire suas dúvidas em 1 clique
-        </span>
-      </a>
+      {/* Floating WA Button with Modern Ripple Effect */}
+      <div className="fixed bottom-6 right-6 z-50 flex items-center justify-center">
+        {/* Ripple Animation Layer */}
+        <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
+        
+        {/* Main Button */}
+        <a 
+          onClick={() => trackAndOpenWhatsApp('Botão Flutuante')}
+          className="relative inline-flex cursor-pointer bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-105 items-center justify-center group"
+          aria-label="Falar no WhatsApp"
+        >
+          <WhatsAppIcon className="w-8 h-8 text-white" />
+          
+          {/* Tooltip */}
+          <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100">
+            Tire suas dúvidas em 1 clique
+          </span>
+        </a>
+      </div>
 
       <Hero />
       <StatsSection />
