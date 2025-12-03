@@ -29,6 +29,21 @@ export const LeadForm: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [clientIp, setClientIp] = useState('');
+
+  // Captura IP ao carregar o componente
+  useEffect(() => {
+    const fetchIp = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        setClientIp(data.ip);
+      } catch (error) {
+        console.error('Erro ao capturar IP:', error);
+      }
+    };
+    fetchIp();
+  }, []);
 
   // Função auxiliar para ler cookies (usada para pegar _fbp e _fbc)
   const getCookie = (name: string) => {
@@ -81,16 +96,6 @@ export const LeadForm: React.FC = () => {
     const fbc = getCookie('_fbc'); // Click ID (se vier de anúncio)
     const userAgent = navigator.userAgent; // Dados do navegador
     const pageUrl = window.location.href;
-    
-    // Captura do IP do Cliente (Essencial para CAPI)
-    let clientIp = '';
-    try {
-      const ipRes = await fetch('https://api.ipify.org?format=json');
-      const ipData = await ipRes.json();
-      clientIp = ipData.ip;
-    } catch (error) {
-      console.error("Erro ao obter IP:", error);
-    }
     
     // Geração de ID Único de Evento para Deduplicação (O segredo do CAPI)
     const eventId = 'lead-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
